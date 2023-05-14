@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
@@ -126,8 +127,7 @@ class SocialShare {
     return version;
   }
 
-  static Future<String?> shareSms(String message,
-      {String? url, String? trailingText}) async {
+  static Future<String?> shareSms(String message, {String? url, String? trailingText}) async {
     Map<String, dynamic>? args;
     if (Platform.isIOS) {
       if (url == null) {
@@ -155,13 +155,11 @@ class SocialShare {
       "content": text,
       "image": image,
     };
-    final String? response =
-        await _channel.invokeMethod('copyToClipboard', args);
+    final String? response = await _channel.invokeMethod('copyToClipboard', args);
     return response;
   }
 
-  static Future<bool?> shareOptions(String contentText,
-      {String? imagePath}) async {
+  static Future<bool?> shareOptions(String contentText, {String? imagePath}) async {
     Map<String, dynamic> args;
 
     var _imagePath = imagePath;
